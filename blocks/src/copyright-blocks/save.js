@@ -1,9 +1,28 @@
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
-export default function save() {
+export default function save( { attributes } ) {
+	const { cssStyles, content } = attributes;
 	return (
-		<p { ...useBlockProps.save() }>
-			{ 'Copyright change Block – from frontend save js' }
-		</p>
+		<div { ...useBlockProps.save() }>
+			<div
+				style={ {
+					backgroundColor: cssStyles.bgColor,
+					padding: cssStyles.padding,
+					textAlign: cssStyles.alignment,
+					color: cssStyles.color,
+					borderColor: cssStyles.border.color,
+					borderWidth: cssStyles.border.width,
+					borderStyle: cssStyles.border.style,
+				} }
+			>
+				<RichText.Content
+					style={ {
+						color: cssStyles.color,
+					} }
+					tagName="h2"
+					value={ content }
+				/>
+			</div>
+		</div>
 	);
 }

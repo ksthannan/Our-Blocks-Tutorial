@@ -1,17 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "our-blocks/another-block",
-	"version": "0.1.0",
-	"title": "Another Block",
+	"name": "our-blocks/our-description",
+	"version": "1.0.0",
+	"title": "Our Description",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "Description block of section",
 	"example": {},
-	"supports": {
-		"html": false
-	},
-	"textdomain": "anotehr-block",
+	"textdomain": "our-blocks",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",

@@ -5,10 +5,7 @@ import './editor.scss';
 export default function Edit() {
 	return (
 		<p { ...useBlockProps() }>
-			{ __(
-				'Copyright Block – Edit JS!',
-				'copyright-block'
-			) }
+			{ __( 'Copyright Block – Edit JS!', 'copyright-block' ) }
 		</p>
 	);
 }

@@ -13,8 +13,8 @@
  * @package CreateBlock
  */
 
-if (! defined('ABSPATH') ) {
-    exit; // Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -24,10 +24,10 @@ if (! defined('ABSPATH') ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function create_block_gt_posts_block_init()
-{
-    register_block_type(__DIR__ . '/blocks/build/copyright-blocks');
-    register_block_type(__DIR__ . '/blocks/build/gt-posts');
-    register_block_type(__DIR__ . '/blocks/build/another-block');
+function create_block_gt_posts_block_init() {
+	register_block_type( __DIR__ . '/blocks/build/copyright-blocks' );
+	register_block_type( __DIR__ . '/blocks/build/gt-posts' );
+	register_block_type( __DIR__ . '/blocks/build/another-block' );
+	register_block_type( __DIR__ . '/blocks/build/our-description' );
 }
-add_action('init', 'create_block_gt_posts_block_init');
+add_action( 'init', 'create_block_gt_posts_block_init' );
