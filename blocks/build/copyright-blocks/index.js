@@ -226,15 +226,15 @@ __webpack_require__.r(__webpack_exports__);
     cssStyles: {
       type: 'object',
       default: {
-        "bgColor": "#aa4e4e",
-        "color": "#f1e39f",
-        "padding": "30px",
-        "border": {
-          "color": "#c96565",
-          "style": "solid",
-          "width": "15px"
+        bgColor: '#aa4e4e',
+        color: '#f1e39f',
+        padding: '30px',
+        border: {
+          color: '#c96565',
+          style: 'solid',
+          width: '15px'
         },
-        "alignment": "center"
+        alignment: 'center'
       }
     },
     content: {

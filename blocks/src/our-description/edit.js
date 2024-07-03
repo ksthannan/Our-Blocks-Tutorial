@@ -4,14 +4,16 @@ import {
 	useBlockProps,
 	InspectorControls,
 	RichText,
+	MediaUpload,
+	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import { ColorPicker, PanelBody } from '@wordpress/components';
+import { ColorPicker, PanelBody, Button } from '@wordpress/components';
 
 import './editor.scss';
 
 export default function Edit( props ) {
 	const { attributes, setAttributes } = props;
-	const { color, background, content } = attributes;
+	const { color, background, content, image } = attributes;
 
 	const onChangeColor = ( newColor ) => {
 		setAttributes( { color: newColor } );
@@ -19,46 +21,65 @@ export default function Edit( props ) {
 	const onChangeBgColor = ( newBackground ) => {
 		setAttributes( { background: newBackground } );
 	};
+	const onChangeImage = ( media ) => {
+		setAttributes( { image: { url: media.url, alt: media.alt } } );
+	};
 
 	console.log( attributes );
 
+	const blockProps = useBlockProps( {
+		className: 'our-description',
+	} );
+
 	return (
-		<div { ...useBlockProps() }>
-			<div className="our-description">
-				<InspectorControls>
-					<PanelBody title={ __( 'Settings' ) }>
-						<label>Background</label>
-						<ColorPicker
-							color={ background }
-							onChange={ ( newBackground ) =>
-								onChangeBgColor( newBackground )
-							}
-							enableAlpha
-							defaultValue="#000"
-						/>
-						<label>Color</label>
-						<ColorPicker
-							color={ color }
-							onChange={ ( newColor ) =>
-								onChangeColor( newColor )
-							}
-							enableAlpha
-							defaultValue="#000"
-						/>
-					</PanelBody>
-				</InspectorControls>
-				{ /* <p style={{color:color, background: background}}>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                </p> */ }
-				<RichText
-					style={ { color: color, background: background } }
-					tagName="p"
-					value={ content }
-					allowedFormats={ [ 'core/bold', 'core/italic' ] }
-					onChange={ ( content ) => setAttributes( { content } ) }
-					placeholder={ __( 'Content placeholder...' ) }
+		<div { ...blockProps }>
+			<InspectorControls>
+				<PanelBody title={ __( 'Settings' ) }>
+					<label>Background</label>
+					<ColorPicker
+						color={ background }
+						onChange={ ( newBackground ) =>
+							onChangeBgColor( newBackground )
+						}
+						enableAlpha
+						defaultValue="#000"
+					/>
+					<label>Color</label>
+					<ColorPicker
+						color={ color }
+						onChange={ ( newColor ) => onChangeColor( newColor ) }
+						enableAlpha
+						defaultValue="#000"
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<MediaUploadCheck>
+				<MediaUpload
+					onSelect={ ( media ) => onChangeImage( media ) }
+					allowedTypes={ [ 'image' ] }
+					value={ image.url }
+					render={ ( { open } ) =>
+						image ? (
+							<img
+								onDoubleClick={ open }
+								src={ image.url }
+								alt={ image.alt }
+							/>
+						) : (
+							''
+						)
+					}
 				/>
-			</div>
+			</MediaUploadCheck>
+
+			<RichText
+				style={ { color: color, background: background } }
+				tagName="p"
+				value={ content }
+				allowedFormats={ [ 'core/bold', 'core/italic' ] }
+				onChange={ ( content ) => setAttributes( { content } ) }
+				placeholder={ __( 'Content placeholder...' ) }
+			/>
 		</div>
 	);
 }

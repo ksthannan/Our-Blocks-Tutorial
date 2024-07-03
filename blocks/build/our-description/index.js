@@ -35,7 +35,8 @@ function Edit(props) {
   const {
     color,
     background,
-    content
+    content,
+    image
   } = attributes;
   const onChangeColor = newColor => {
     setAttributes({
@@ -47,11 +48,20 @@ function Edit(props) {
       background: newBackground
     });
   };
+  const onChangeImage = media => {
+    setAttributes({
+      image: {
+        url: media.url,
+        alt: media.alt
+      }
+    });
+  };
   console.log(attributes);
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
+    className: 'our-description'
+  });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "our-description"
+    ...blockProps
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Settings')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", null, "Background"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPicker, {
@@ -64,7 +74,18 @@ function Edit(props) {
     onChange: newColor => onChangeColor(newColor),
     enableAlpha: true,
     defaultValue: "#000"
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUploadCheck, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUpload, {
+    onSelect: media => onChangeImage(media),
+    allowedTypes: ['image'],
+    value: image.url,
+    render: ({
+      open
+    }) => image ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      onDoubleClick: open,
+      src: image.url,
+      alt: image.alt
+    }) : ''
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     style: {
       color: color,
       background: background
@@ -76,7 +97,7 @@ function Edit(props) {
       content
     }),
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Content placeholder...')
-  })));
+  }));
 }
 
 /***/ }),
@@ -111,6 +132,13 @@ __webpack_require__.r(__webpack_exports__);
       type: 'string',
       default: '#eeee'
     },
+    image: {
+      type: 'object',
+      default: {
+        url: 'http://gutenberg-block-development-from-scratch.local/wp-content/uploads/2024/06/1520176215199.jpg',
+        alt: 'Beautiful Bangladesh'
+      }
+    },
     content: {
       type: 'string'
     }
@@ -141,20 +169,25 @@ function save({
   const {
     color,
     background,
-    content
+    content,
+    image
   } = attributes;
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
+    className: 'our-description'
+  });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "our-description"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+    ...blockProps
+  }, image ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: image.url,
+    alt: image.alt
+  }) : '', (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     style: {
       color: color,
       background: background
     },
     tagName: "p",
     value: content
-  })));
+  }));
 }
 
 /***/ }),

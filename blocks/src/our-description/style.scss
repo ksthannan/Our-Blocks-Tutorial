@@ -1,13 +1,12 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.our-description {
+    background: #eee;
+}
 
-.wp-block-create-block-copyright-block {
-	background-color: #000;
-	color: #fff;
-	padding: 2px;
-	
+.our-description p {
+    padding: 20px;
+}
+
+.our-description img {
+    width: 100%;
+    max-width: 100%;
 }

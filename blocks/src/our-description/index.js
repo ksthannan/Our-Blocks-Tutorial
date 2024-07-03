@@ -16,6 +16,13 @@ registerBlockType( metadata.name, {
 			type: 'string',
 			default: '#eeee',
 		},
+		image: {
+			type: 'object',
+			default: {
+				url: 'http://gutenberg-block-development-from-scratch.local/wp-content/uploads/2024/06/1520176215199.jpg',
+				alt: 'Beautiful Bangladesh',
+			},
+		},
 		content: {
 			type: 'string',
 		},
