@@ -6,8 +6,9 @@ import {
 	RichText,
 	MediaUpload,
 	MediaUploadCheck,
+	InnerBlocks,
 } from '@wordpress/block-editor';
-import { ColorPicker, PanelBody, Button } from '@wordpress/components';
+import { ColorPicker, PanelBody } from '@wordpress/components';
 
 import './editor.scss';
 
@@ -24,6 +25,45 @@ export default function Edit( props ) {
 	const onChangeImage = ( media ) => {
 		setAttributes( { image: { url: media.url, alt: media.alt } } );
 	};
+
+	const ALLOWED_BLOCKS = [ 'core/image', 'core/paragraph' ];
+
+	const TEMPLATE = [
+		[
+			'core/columns',
+			{},
+			[
+				[
+					'core/column',
+					{},
+					[
+						[
+							'core/image',
+							{
+								lock: {
+									remove: false,
+									move: false,
+								},
+							},
+						],
+						[ 'core/image' ],
+					],
+				],
+				[
+					'core/column',
+					{},
+					[
+						[
+							'core/paragraph',
+							{ placeholder: 'Enter side content...' },
+						],
+						[ 'core/image' ],
+					],
+				],
+				[ 'core/column', {}, [ [ 'core/image' ] ] ],
+			],
+		],
+	];
 
 	console.log( attributes );
 
@@ -72,13 +112,19 @@ export default function Edit( props ) {
 				/>
 			</MediaUploadCheck>
 
-			<RichText
+			{ /* <RichText
 				style={ { color: color, background: background } }
 				tagName="p"
 				value={ content }
 				allowedFormats={ [ 'core/bold', 'core/italic' ] }
 				onChange={ ( content ) => setAttributes( { content } ) }
 				placeholder={ __( 'Content placeholder...' ) }
+			/> */ }
+
+			<InnerBlocks
+				template={ TEMPLATE }
+				allowedBlocks={ ALLOWED_BLOCKS }
+				templateLock="all"
 			/>
 		</div>
 	);
